@@ -25,23 +25,6 @@ RUN conda env create -f /tmp/environment.yml
 RUN conda clean -y -t
 
 
-# Install and enable Jupyter (Lab) extensions
-
-RUN jupyter contrib nbextension install
-RUN jupyter nbextension enable livemdpreview/livemdpreview
-RUN jupyter nbextension enable hinterland/hinterland
-RUN jupyter nbextension enable snippets/main
-RUN jupyter nbextension enable snippets_menu/main
-RUN jupyter nbextension enable toc2/main
-RUN jupyter nbextension enable --py --sys-prefix qgrid
-
-# RUN jupyter labextension install @jupyterlab/git # TODO: this gives an error... fix! or maybe this isn't necessary
-RUN jupyter labextension install @lckr/jupyterlab_variableinspector
-# RUN jupyter labextension install nbdime-jupyterlab
-# RUN jupyter labextension install jupyterlab-jupytext
-RUN jupyter lab build
-
-
 # Add user
 
 ARG username
@@ -107,3 +90,22 @@ RUN cat /tmp/bashrc.bash >> ${home}/.bashrc \
 #RUN mkdir -p ${home}/.jupyter && \
 #    echo 'c.NotebookApp.password = u"sha1:c6bbcba2d04b:f969e403db876dcfbe26f47affe41909bd53392e"' \
 #    >> ${home}/.jupyter/jupyter_notebook_config.py
+
+
+# Install and enable Jupyter (Lab) extensions
+
+USER root
+
+RUN jupyter contrib nbextension install
+RUN jupyter nbextension enable livemdpreview/livemdpreview
+RUN jupyter nbextension enable hinterland/hinterland
+RUN jupyter nbextension enable snippets/main
+RUN jupyter nbextension enable snippets_menu/main
+RUN jupyter nbextension enable toc2/main
+RUN jupyter nbextension enable --py --sys-prefix qgrid
+
+# RUN jupyter labextension install @jupyterlab/git # TODO: this gives an error... fix! or maybe this isn't necessary
+RUN jupyter labextension install @lckr/jupyterlab_variableinspector
+# RUN jupyter labextension install nbdime-jupyterlab
+# RUN jupyter labextension install jupyterlab-jupytext
+RUN jupyter lab build
