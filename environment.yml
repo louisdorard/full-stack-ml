@@ -1,0 +1,50 @@
+# Configuration file which specifies all of the packages to install to set up a conda environment
+
+name: full-stack-ml
+channels:
+- anaconda
+- conda-forge
+- defaults
+dependencies:
+- bash_kernel
+#- dvc
+- flask
+- graphviz # dl: used to plot Keras model
+- hyperopt=0.1.2
+- ipykernel
+- joblib
+- jupyter_contrib_nbextensions
+- jupyterlab
+- jupyterlab-git
+- jupytext
+- kaggle
+- lime # optional - prediction explanations
+- matplotlib # for plots
+#- mlflow
+- nb_conda_kernels # TODO: check this is necessary
+- nbclean
+- nbdime
+- nltk # optional - for text pre-processing
+- pandas
+- pandas-profiling
+- papermill # for notebook parametrization and execution from CLI
+- pip
+- pre-commit
+- pydot # dl: used to plot Keras model
+- pylint # used by VS Code for linting
+- python>=3
+- qgrid
+- rope # used by VS Code for refactoring
+- rise # slideshow mode on notebooks
+#- shap
+- seaborn # for plots
+- scikit-learn=0.22
+- tensorflow=2.0.0 # dl
+- version_information
+- xgboost
+- pip:
+  - dabl
+#  - h5py==2.8.0rc1 # dl
+  - networkx==1.11 # see https://github.com/hyperopt/hyperopt/issues/325 TODO: this shouldn't be needed anymore...
+  - python-dotenv
+  - git+https://github.com/louisdorard/mlxtend#egg=mlxtend
