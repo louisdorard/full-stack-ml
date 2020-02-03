@@ -109,3 +109,13 @@ RUN jupyter labextension install @lckr/jupyterlab_variableinspector
 # RUN jupyter labextension install nbdime-jupyterlab
 # RUN jupyter labextension install jupyterlab-jupytext
 RUN jupyter lab build
+
+
+# Set up shell
+
+RUN conda init bash
+
+
+# Make the kernel of the environment accessible via its own name (i.e. "full-stack-ml" instead of "Python [conda env:full-stack-ml]")
+
+RUN /bin/bash -c "source /root/.bashrc; conda activate ${environment}; python -m ipykernel install --name ${environment}"
