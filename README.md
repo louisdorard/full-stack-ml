@@ -2,18 +2,34 @@
 
 ## Set-up
 
-### Set authentication variables
+### Accounts
 
-Add them to `auth.env` (see `auth.env.sample`).
+You'll need the following:
 
-In the workshops we'll be using Kaggle.
+* [Kaggle](https://www.kaggle.com)
+* TODO: Gradient or Floyd?
 
-### Set `DATA_PATH` environment variable
+### Environment variables
+
+#### Authentication
+
+Add authentication variables to `auth.env`. As a starting point, you can just copy the `auth.env.sample` file which contains example key/value pairs. You'll need to change the values!
+
+For Kaggle:
+
+* Your username can be found in the top right corner of the Kaggle web interface, once you're logged in. Let's call it `USERNAME` (please replace in the URL below)
+* Go to the _API_ section on https://www.kaggle.com/`USERNAME`/account and click on _Create New API Token_
+
+#### `DATA_PATH`
 
 Let's say that your data files are in directory `X`...
 
 * Add `export DATA_PATH=X` in your bashrc file
 * Make sure that the `volumes` property of `docker-compose.yml` has an item which is `X:/data`
+
+### Conda
+
+### Docker
 
 ## Create or update conda environment
 
