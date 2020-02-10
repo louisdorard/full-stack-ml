@@ -26,4 +26,4 @@ services:
     environment:
       - DATA_PATH=/data
     env_file: 
-      - ../auth.env
+      - ~/auth.env
