@@ -17,7 +17,7 @@ services:
       options:
         max-size: 50m
     ports:
-      - "8888:8888"
+      - "8889:8888"
       - "6006:6006"
     volumes:
       - ../:/home/devel/full-stack-ml
