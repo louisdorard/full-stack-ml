@@ -10,7 +10,7 @@ services:
         - environment=full-stack-ml
         - workdir=/home/devel/full-stack-ml
     container_name: full-stack-ml
-    image: full-stack-ml
+    image: louisdorard/full-stack-ml
     restart: unless-stopped
     logging:
       driver: json-file
