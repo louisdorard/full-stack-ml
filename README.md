@@ -1,68 +1,175 @@
 # Full-Stack Machine Learning Workshops
 
-## Set-up
+<img src="http://s3.louisdorard.com.s3.amazonaws.com/ML_icon.png">
 
-### Accounts
+This repository serves as a base for my online course and in-person workshops. It contains Jupyter notebooks, Python scripts (automatically generated from notebooks), and environment configurations (conda and docker).
 
-You'll need the following:
+Join for exclusive additional content (exercices and ressources). Reach out to me at [louisdorard.com/contact](https://www.louisdorard.com/contact) for more information!
 
-* [Kaggle](https://www.kaggle.com)
-* TODO: Gradient or Floyd?
+## Contents
 
-### Environment variables
+### Core
 
-#### Authentication
+During the course/workshop you'll be interacting with the following files:
 
-Add authentication variables to `auth.env`. As a starting point, you can just copy the `auth.env.sample` file which contains example key/value pairs. You'll need to change the values!
+* `sample-auth.env` and `sample.env`: sample environment files to copy and adapt
+* `00-Version-Information.ipynb`: Python notebook to check that you're using the correct versions of the core libraries needed for this workshop (see _Test environment_ section below)
+* `Experiments.ipynb`: Bash notebook to run notebook-based experiments, locally or on cloud infrastructure
 
-For Kaggle:
+### Others
 
-* Your username can be found in the top right corner of the Kaggle web interface, once you're logged in. Let's call it `USERNAME` (please replace in the URL below)
-* Go to the _API_ section on https://www.kaggle.com/`USERNAME`/account and click on _Create New API Token_
+The repo also contains:
 
-#### `DATA_PATH`
+* `setup/`: files used to prepare the ML development environment
+* `scripts/`: Python and Bash scripts generated from notebooks by `jupytext`
+* `output/`: directory meant for storage of artifacts from notebook executions and experiments; it's included in `.gitignore` so it will be empty when cloning this repo.
 
-Let's say that your data files are in directory `X`...
+### Set-up
 
-* Add `export DATA_PATH=X` in your bashrc file
-* Make sure that the `volumes` property of `docker-compose.yml` has an item which is `X:/data`
+This document provides set-up instructions to prepare for the exercises and projects you'll do on your laptop during the "lab" sessions:
 
-### Conda
+* Create accounts
+* Install development environment
+* Test environment
+* Set environment variables
+* Download data
+* Appendix: set-up shell
 
-### Docker
+All commands given below should be executed from the root of this repo and are meant for the `bash` shell (see Appendix if you need to set it up).
 
-## Create or update conda environment
+## Create accounts
+
+You'll need accounts on the following platforms:
+
+* [Kaggle](https://www.kaggle.com): ML competitions
+* [Gradient](https://gradient.paperspace.com): cloud ML development and deployment (freemium - no credit card required for this workshop)
+
+## Install development environment
+
+Our ML development environment is based on Python and Jupyter. We use `conda` to install it. [Conda](https://conda.io) is a Python distribution, an environment manager, and a package manager (it resolves dependencies).
+
+1. Install `conda`: see [Miniconda installers and instructions](https://conda.io/en/latest/miniconda.html). (Note: On Mac I used [Homebrew](https://brew.sh): `brew cask install miniconda`.)
+1. Update conda:
+  ```bash
+  conda update —all -y
+  ```
+2. Create the `full-stack-ml` environment, which will contain the packages listed in [`environment.yml`](setup/environment.yml):
+  ```bash
+  conda install anaconda-client
+  conda env create louisdorard/full-stack-ml
+  ```
+
+  (Note that this downloads and uses the `environment.yml` file from [Anaconda Cloud](https://anaconda.org/louisdorard/full-stack-ml) — which might be different from the local file.)
+1. Initialize conda for your shell (replace `YOUR_SHELL_NAME` with the name of your shell, e.g. `bash`):
+  ```bash
+  conda init YOUR_SHELL_NAME
+  ```
+1. Activate the `full-stack-ml` environment:
+  ```bash
+  conda activate full-stack-ml
+  ```
+1. Run script to finalize Jupyter installation and configuration:
+```bash
+bash setup/jupyter-install.bash
+```
+
+Remark: the steps above match the instructions in the [Dockerfile](docker/Dockerfile).
+
+## Set environment variables
+
+* Add path to directory where you store raw data files, in `~/.env`. Add Kaggle and Gradient authentication variables in `~/auth.env`. As a starting point, you can just copy the [`sample-auth.env`](setup/sample-auth.env) and [`sample.env`](setup/sample.env) files found in `setup/`, which contain example key/value pairs. You'll need to change the values!
+  * For Kaggle:
+    * Your username can be found in the top right corner of the Kaggle web interface, once you're logged in. Let's call it `USERNAME` (please replace in the URL below)
+    * Go to the _API_ section on https://www.kaggle.com/`USERNAME`/account and click on _Create New API Token_
+  * For Gradient:
+    * You can create an API key from https://www.paperspace.com/console/account/api: enter a Name (this can be whatever you want, e.g. "workshop"), a Description (optional), and click on "Create API token".
+    * Your project ID can be found at https://www.paperspace.com/console/projects.
+* Add the following lines at the end of your shell config file (e.g. `~/.bash_config` or `~/.bashrc` for bash):
+  ```bash
+  source .env
+  source auth.env
+  ```
+
+## Download data
+
+We'll use 3 datasets from Kaggle competitions:
+
+* [Avazu](http://kaggle.com/c/avazu-ctr-prediction/) (~1 GB compressed - 7 GB uncompressed)
+* [House Prices](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/) (~200 KB)
+* [Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit/) (~7 MB)
+
+They can be downloaded to your raw data directory with the following command:
+
+```bash
+bash setup/scripts/Download-Data.sh
+```
+
+## Test environment
+
+Assuming that you've already activated the `full-stack-ml` environment in your current shell session...
+
+1. Test that the environment is functional by running the following command:
+
+```bash
+papermill 00-Version-Information.ipynb output/00-Version-Information.ipynb
+```
+The output should show:
+
+```
+sklearn	0.22.1
+```
+
+1. Test notebooks (this can take a couple of minutes):
+
+```bash
+jupytext --from ipynb --execute ??-*.ipynb
+```
+
+1. Fire up Jupyter Lab, to interact with the notebooks:
+
+```bash
+jupyter-lab
+```
+
+This should automatically open your browser at http://localhost:8888/
 
 TODO: test this on Windows
 
-The `full-stack-ml` environment configuration was uploaded to Anaconda cloud via `anaconda upload environment.yml` and can be found at [`louisdorard/full-stack-ml`](https://anaconda.org/louisdorard/full-stack-ml). The environment can then be created anywhere via the following command (no need to have the `environment.yml` file, but just an internet connection; replace `create` with `update` if you've already created this environment and just need to update it):
+## Cloud platform
 
-```bash
-conda env create louisdorard/ml-workshops
-```
+TODO: include Gradient.md (work in progress, see _gradient_ branch of this repo)
 
-For development purposes, you can make changes to the environment config and then make sure that the environment can be created or updated. For this, execute the following command from this repo's directory (again, `create` can be replaced by `update`):
+## Install IDE (optional)
 
-```bash
-conda env create -f environment.yml
-```
+To create Python scripts and modules, lint and refactor code, use an IDE as a complement to Jupyter Lab.
 
-## Build docker image
+I recommend [Visual Studio Code](https://code.visualstudio.com) (VS Code):
 
-From the `docker/` subdirectory:
+* It's a free and popular IDE for many different languages
+* It has built-in support for Git
+* Recommended extensions: Python, Docker, Rainbow CSV, Excel Viewer, Markdown All in One
+* Go through [Getting Started with Python in VS Code](https://code.visualstudio.com/docs/python/python-tutorial)
 
-```bash
-docker-compose build
-```
 
-Test all is working well by starting a docker container from the docker image that was built, and executing a notebook:
+Follow the official install instructions. Alternatively, on macOS you can install VS Code with Homebrew (`brew cask install visual-studio-code`), and on Linux you can install it from the [Snap Store](snapcraft.io/store).
 
-```bash
-docker-compose up
-```
+## Appendix: set-up shell
 
-If needed, get access to an interactive bash session with this command:
+Required to install dev env.
 
-```bash
-docker-compose run full-stack-ml bash
-```
+On Mac I use the [fish shell](http://fishshell.com) and the [iTerm terminal](http://iterm2.com).
+
+### Windows
+
+On Windows I recommend using [cmder](https://cmder.net) as terminal (which uses bash by default)
+
+[Git For Windows](https://gitforwindows.org), which includes the bash shell, and using [cmder](https://cmder.net) as terminal (which uses bash by default). Other popular options to use the command line for Windows users are [Cygwin](http://cygwin.com), or the [Ubuntu app](https://www.microsoft.com/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab), or to install Ubuntu alongside Windows.
+
+https://ubuntu.com/tutorials/tutorial-create-a-usb-stick-on-windows#1-overview
+
+Once your shell and your terminal are set up, you'll be ready to execute the commands below.
+
+## About the author
+
+[Louis Dorard](https://www.louisdorard.com) | Follow me on Twitter [@louisdorard](https://twitter.com/louisdorard)
+

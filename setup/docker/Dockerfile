@@ -28,7 +28,7 @@ RUN mkdir /data
 # Install conda environment
 ####
 
-COPY conda/environment.yml /tmp/
+COPY environment.yml /tmp/
 RUN conda env create -f /tmp/environment.yml \
     && rm /tmp/environment.yml
 RUN conda clean -y -t
@@ -37,9 +37,10 @@ RUN conda clean -y -t
 
 ENV PATH /opt/conda/envs/full-stack-ml/bin:$PATH
 RUN conda init bash
+RUN chsh -s /bin/bash
 
 # Finalize Jupyter installation and configuration
-COPY conda/jupyter-install.bash /tmp/
+COPY jupyter-install.bash /tmp/
 RUN bash /tmp/jupyter-install.bash && rm /tmp/jupyter-install.bash
 
 
@@ -52,7 +53,6 @@ ARG userid
 
 ARG home=/home/${username}
 ARG workdir=${home}/full-stack-ml
-ARG environment=full-stack-ml
 
 RUN adduser ${username} --uid ${userid} --gecos '' --disabled-password \
     && echo "${username} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${username} \
@@ -65,6 +65,7 @@ USER ${username}
 WORKDIR ${workdir}
 
 # conda setup for user
+ENV PATH /opt/conda/envs/full-stack-ml/bin:$PATH
 RUN conda init bash
 
 COPY docker/bashrc.bash /tmp/
@@ -111,3 +112,9 @@ RUN git config --global diff.jupyternotebook.command 'git-nbdiffdriver diff --ig
 #RUN mkdir -p ${home}/.jupyter && \
 #    echo 'c.NotebookApp.password = u"sha1:c6bbcba2d04b:f969e403db876dcfbe26f47affe41909bd53392e"' \
 #    >> ${home}/.jupyter/jupyter_notebook_config.py
+
+
+# Change default shell
+# RUN chsh -s /bin/bash
+USER root
+RUN usermod ${username} -s /bin/bash

@@ -7,7 +7,9 @@ python -m ipykernel install --name full-stack-ml
 # Install Bash kernel
 python -m bash_kernel.install
 
-# Install and enable extensions
+# Install and enable Jupyter extensions
+# (some where already installed via conda packages included in environment.yml)
+
 jupyter contrib nbextension install
 jupyter nbextension enable livemdpreview/livemdpreview
 jupyter nbextension enable hinterland/hinterland
