@@ -6,14 +6,14 @@ channels:
 - conda-forge
 - defaults
 dependencies:
-- bash_kernel
+- bash_kernel # use Bash instead of Python kernel in notebooks
 #- dvc
 - flask
 - graphviz # dl: used to plot Keras model
 - hyperopt=0.1.2
 - ipykernel
 - joblib
-- jupyter_contrib_nbextensions
+- jupyter_contrib_nbextensions # makes it easier to customize Jupyter extensions such as rise
 - jupyterlab
 - jupyterlab-git
 - jupytext
@@ -21,7 +21,7 @@ dependencies:
 - lime # optional - prediction explanations
 - matplotlib # for plots
 #- mlflow
-- nb_conda_kernels # TODO: check this is necessary
+- nb_conda_kernels # allows usage of any environment as Jupyter kernel
 - nbclean
 - nbdime
 - nltk # optional - for text pre-processing
@@ -30,6 +30,7 @@ dependencies:
 - papermill # for notebook parametrization and execution from CLI
 - pip
 - pre-commit
+- py-xgboost=0.90
 - pydot # dl: used to plot Keras model
 - pylint # used by VS Code for linting
 - python>=3
@@ -41,7 +42,6 @@ dependencies:
 - scikit-learn=0.22
 - tensorflow=2.0.0 # dl
 - version_information
-- xgboost
 - pip:
   - dabl
 #  - h5py==2.8.0rc1 # dl
