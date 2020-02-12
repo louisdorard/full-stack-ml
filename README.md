@@ -48,12 +48,16 @@ You'll need accounts on the following platforms:
 
 Our ML development environment is based on Python and Jupyter. We use `conda` to install it. [Conda](https://conda.io) is a Python distribution, an environment manager, and a package manager (it resolves dependencies).
 
-1. Install `conda`: see [Miniconda installers and instructions](https://conda.io/en/latest/miniconda.html). (Note: On Mac I used [Homebrew](https://brew.sh): `brew cask install miniconda`.)
-1. Update conda:
+1. Clone this repo:
+  ```bash
+  git clone https://github.com/louisdorard/full-stack-ml.git
+  ```
+2. Install `conda`: see [Miniconda installers and instructions](https://conda.io/en/latest/miniconda.html). (Note: On Mac I used [Homebrew](https://brew.sh): `brew cask install miniconda`.)
+3. Update conda:
   ```bash
   conda update —all -y
   ```
-2. Create the `full-stack-ml` environment, which will contain the packages listed in [`environment.yml`](setup/environment.yml):
+1. Create the `full-stack-ml` environment, which will contain the packages listed in [`environment.yml`](setup/environment.yml):
   ```bash
   conda install anaconda-client
   conda env create louisdorard/full-stack-ml
@@ -73,7 +77,10 @@ Our ML development environment is based on Python and Jupyter. We use `conda` to
 bash setup/jupyter-install.bash
 ```
 
-Remark: the steps above match the instructions in the [Dockerfile](docker/Dockerfile).
+Remarks:
+
+* If you run into any difficulties with installing this environment, you can try using a Docker-powered environment, based on the [`louisdorard/full-stack-ml` image](https://hub.docker.com/repository/docker/louisdorard/full-stack-ml) and on the docker-compose configuration in [`setup/docker/`](setup/docker/)). The installation steps above match the instructions in the [Dockerfile](setup/docker/Dockerfile) used to create that image.
+* Alternatively, you can also try using a cloud platform (see dedicated section below).
 
 ## Set environment variables
 
@@ -155,19 +162,15 @@ Follow the official install instructions. Alternatively, on macOS you can instal
 
 ## Appendix: set-up shell
 
-Required to install dev env.
+Installation of the development environment is done from the shell.
 
-On Mac I use the [fish shell](http://fishshell.com) and the [iTerm terminal](http://iterm2.com).
+On Mac I use the [fish shell](http://fishshell.com) and the [iTerm terminal](http://iterm2.com). However, the most popular shell is probably Bash.
 
-### Windows
+On Windows I recommend using [Cmder](https://cmder.net) as terminal, which uses bash by default; download the "Full" version of cmder, which includes Git For Windows. You'll need to right-click on the Cmder.exe and choose "Run as administrator" (otherwise you won't be able to create the conda environment).
 
-On Windows I recommend using [cmder](https://cmder.net) as terminal (which uses bash by default)
+Other popular options to use the command line for Windows users are [Cygwin](http://cygwin.com), or to use the Ubuntu linux distribution; this can be via the [Ubuntu app](https://www.microsoft.com/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab), or via a [dual-boot installation alongside Windows](https://help.ubuntu.com/community/WindowsDualBoot), or via a [bootable USB stick](https://ubuntu.com/tutorials/tutorial-create-a-usb-stick-on-windows#1-overview).
 
-[Git For Windows](https://gitforwindows.org), which includes the bash shell, and using [cmder](https://cmder.net) as terminal (which uses bash by default). Other popular options to use the command line for Windows users are [Cygwin](http://cygwin.com), or the [Ubuntu app](https://www.microsoft.com/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab), or to install Ubuntu alongside Windows.
-
-https://ubuntu.com/tutorials/tutorial-create-a-usb-stick-on-windows#1-overview
-
-Once your shell and your terminal are set up, you'll be ready to execute the commands below.
+Once your shell and your terminal are set up, you'll be ready to execute all the commands given here!
 
 ## About the author
 
