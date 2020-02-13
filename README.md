@@ -2,9 +2,9 @@
 
 <img src="http://s3.louisdorard.com.s3.amazonaws.com/ML_icon.png">
 
-This repository serves as a base for my online course and in-person workshops. It contains Jupyter notebooks, Python scripts (automatically generated from notebooks), and environment configurations (conda and docker).
+This repository serves as a base for my online course and in-person workshops. It contains Jupyter notebooks, Python scripts (automatically generated from notebooks), and environment configurations (conda and docker). Join for exclusive additional content (exercices and ressources) — reach out to me at [louisdorard.com/contact](https://www.louisdorard.com/contact) for more information!
 
-Join for exclusive additional content (exercices and ressources). Reach out to me at [louisdorard.com/contact](https://www.louisdorard.com/contact) for more information!
+Below is a description of the contents of this repo, and a list of steps to prepare for the exercises and projects you'll do on your laptop ("set-up"):
 
 ## Contents
 
@@ -21,11 +21,9 @@ During the course/workshop you'll be interacting with the following files:
 The repo also contains:
 
 * `setup/`: files used to prepare the ML development environment
-* `scripts/`: Python and Bash scripts generated from notebooks by `jupytext`
+* `scripts/`: Python and Bash scripts automatically generated from notebooks by `jupytext`
 
 ### Set-up
-
-This document provides set-up instructions to prepare for the exercises and projects you'll do on your laptop during the "lab" sessions:
 
   - [Create accounts](#create-accounts)
   - [Install development environment](#install-development-environment)
@@ -49,38 +47,37 @@ You'll need accounts on the following platforms:
 Our ML development environment is based on Python and Jupyter. We use `conda` to install it. [Conda](https://conda.io) is a Python distribution, an environment manager, and a package manager (it resolves dependencies).
 
 1. Clone this repo and `cd` into it:
-  ```bash
-  git clone https://github.com/louisdorard/full-stack-ml.git
-  cd full-stack-ml/
-  ```
-1. Create an `output/`: directory meant for storage of artifacts from notebook executions and experiments (it's included in `.gitignore`).
+   ```bash
+   git clone https://github.com/louisdorard/full-stack-ml.git
+   cd full-stack-ml/
+   ```
+2. Create an `output/`: directory meant for storage of artifacts from notebook executions and experiments (it's included in `.gitignore`).
    ```bash
    mkdir output/
    ```
-1. Install `conda`. The fastest way for this is to install [Miniconda](https://conda.io/en/latest/miniconda.html) (a mini version of [Anaconda](https://docs.continuum.io/anaconda/)): see official instructions for [Windows](https://conda.io/projects/conda/en/latest/user-guide/install/windows.html#install-win-silent) (use the example command), [macOS](https://conda.io/projects/conda/en/latest/user-guide/install/macos.html#install-macos-silent) (use the example command under _Installing in silent mode_), or [Linux](https://conda.io/projects/conda/en/latest/user-guide/install/linux.html). If you're asked whether to add (Ana)conda to you PATH, choose yes (or tick the appropriate box in the graphical installer). (Note: On macOS I used [Homebrew](https://brew.sh): `brew cask install miniconda`.)
-1. Update conda:
-  ```bash
-  conda update —all -y
-  ```
-1. Create the `full-stack-ml` environment, which will contain the packages listed in [`environment.yml`](setup/environment.yml):
-  ```bash
-  conda install anaconda-client
-  conda env create louisdorard/full-stack-ml
-  ```
-
-  (Note that this downloads and uses the `environment.yml` file from [Anaconda Cloud](https://anaconda.org/louisdorard/full-stack-ml) — which might be different from the local file.)
-1. Initialize conda for your shell (replace `YOUR_SHELL_NAME` with the name of your shell, e.g. `bash`):
-  ```bash
-  conda init YOUR_SHELL_NAME
-  ```
-1. Activate the `full-stack-ml` environment:
-  ```bash
-  conda activate full-stack-ml
-  ```
-1. Run script to finalize Jupyter installation and configuration:
-```bash
-bash setup/jupyter-install.bash
-```
+3. Install `conda`. The fastest way for this is to install [Miniconda](https://conda.io/en/latest/miniconda.html) (a mini version of [Anaconda](https://docs.continuum.io/anaconda/)): see official instructions for [Windows](https://conda.io/projects/conda/en/latest/user-guide/install/windows.html#install-win-silent) (use the example command), [macOS](https://conda.io/projects/conda/en/latest/user-guide/install/macos.html#install-macos-silent) (use the example command under _Installing in silent mode_), or [Linux](https://conda.io/projects/conda/en/latest/user-guide/install/linux.html). If you're asked whether to add (Ana)conda to you PATH, choose yes (or tick the appropriate box in the graphical installer). (Note: On macOS I used [Homebrew](https://brew.sh): `brew cask install miniconda`.)
+4. Update conda:
+   ```bash
+   conda update —all -y
+   ```
+5. Create the `full-stack-ml` environment, which will contain the packages listed in [`environment.yml`](setup/environment.yml):
+   ```bash
+   conda install anaconda-client
+   conda env create louisdorard/full-stack-ml
+   ```
+   (Note that this downloads and uses the `environment.yml` file from [Anaconda Cloud](https://anaconda.org/louisdorard/full-stack-ml) — which might be different from the local file.)
+6. Initialize conda for your shell (replace `YOUR_SHELL_NAME` with the name of your shell, e.g. `bash`):
+   ```bash
+   conda init YOUR_SHELL_NAME
+   ```
+7. Activate the `full-stack-ml` environment:
+   ```bash
+   conda activate full-stack-ml
+   ```
+8. Run script to finalize Jupyter installation and configuration:
+   ```bash
+   bash setup/jupyter-install.bash
+   ```
 
 Remarks:
 
@@ -89,18 +86,18 @@ Remarks:
 
 ## Set environment variables
 
-* Add path to directory where you store raw data files, in `~/.env`. Add Kaggle and Gradient authentication variables in `~/auth.env`. As a starting point, you can just copy the [`sample-auth.env`](setup/sample-auth.env) and [`sample.env`](setup/sample.env) files found in `setup/`, which contain example key/value pairs. You'll need to change the values!
-  * For Kaggle:
+1. Add path to directory where you store raw data files, in `~/.env`. Add Kaggle and Gradient authentication variables in `~/auth.env`. As a starting point, you can just copy the [`sample-auth.env`](setup/sample-auth.env) and [`sample.env`](setup/sample.env) files found in `setup/`, which contain example key/value pairs. You'll need to change the values!
+  1. For Kaggle:
     * Your username can be found in the top right corner of the Kaggle web interface, once you're logged in. Let's call it `USERNAME` (please replace in the URL below)
     * Go to the _API_ section on https://www.kaggle.com/`USERNAME`/account and click on _Create New API Token_
-  * For Gradient:
+  2. For Gradient:
     * You can create an API key from https://www.paperspace.com/console/account/api: enter a Name (this can be whatever you want, e.g. "workshop"), a Description (optional), and click on "Create API token".
     * Your project ID can be found at https://www.paperspace.com/console/projects.
-* Add the following lines at the end of your shell config file (e.g. `~/.bash_config` or `~/.bashrc` for bash):
-  ```bash
-  source .env
-  source auth.env
-  ```
+2. Add the following lines at the end of your shell config file (e.g. `~/.bash_config` or `~/.bashrc` for bash):
+   ```bash
+   source .env
+   source auth.env
+   ```
 
 ## Download data
 
@@ -121,27 +118,22 @@ bash setup/scripts/Download-Data.sh
 Assuming that you've already activated the `full-stack-ml` environment in your current shell session...
 
 1. Test that the environment is functional by running the following command:
-
-```bash
-papermill 00-Version-Information.ipynb output/00-Version-Information.ipynb
-```
-The output should show:
-
-```
-sklearn	0.22.1
-```
-
-1. Test notebooks (this can take a couple of minutes):
-
-```bash
-jupytext --from ipynb --execute ??-*.ipynb
-```
-
-1. Fire up Jupyter Lab, to interact with the notebooks:
-
-```bash
-jupyter-lab
-```
+   
+   ```bash
+   papermill 00-Version-Information.ipynb output/00-Version-Information.ipynb
+   ```
+   The output should show:
+   ```
+   sklearn	0.22.1
+   ```
+2. Test notebooks (this can take a couple of minutes):
+   ```bash
+   jupytext --from ipynb --execute ??-*.ipynb
+   ```
+3. Fire up Jupyter Lab, to interact with the notebooks:
+   ```bash
+   jupyter-lab
+   ```
 
 This should automatically open your browser at http://localhost:8888/
 
