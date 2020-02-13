@@ -22,20 +22,20 @@ The repo also contains:
 
 * `setup/`: files used to prepare the ML development environment
 * `scripts/`: Python and Bash scripts generated from notebooks by `jupytext`
-* `output/`: directory meant for storage of artifacts from notebook executions and experiments; it's included in `.gitignore` so it will be empty when cloning this repo.
 
 ### Set-up
 
 This document provides set-up instructions to prepare for the exercises and projects you'll do on your laptop during the "lab" sessions:
 
-* Create accounts
-* Install development environment
-* Test environment
-* Set environment variables
-* Download data
-* Appendix: set-up shell
-
-All commands given below should be executed from the root of this repo and are meant for the `bash` shell (see Appendix if you need to set it up).
+  - [Create accounts](#create-accounts)
+  - [Install development environment](#install-development-environment)
+  - [Set environment variables](#set-environment-variables)
+  - [Download data](#download-data)
+  - [Test environment](#test-environment)
+  - [Cloud platform](#cloud-platform)
+  - [Install IDE (optional)](#install-ide-optional)
+  
+All commands given below should be executed from the root of this repo and are meant for the `bash` shell (see [Appendix: set-up shell](#appendix-set-up-shell) if needed).
 
 ## Create accounts
 
@@ -48,12 +48,17 @@ You'll need accounts on the following platforms:
 
 Our ML development environment is based on Python and Jupyter. We use `conda` to install it. [Conda](https://conda.io) is a Python distribution, an environment manager, and a package manager (it resolves dependencies).
 
-1. Clone this repo:
+1. Clone this repo and `cd` into it:
   ```bash
   git clone https://github.com/louisdorard/full-stack-ml.git
+  cd full-stack-ml/
   ```
-2. Install `conda`: see [Miniconda installers and instructions](https://conda.io/en/latest/miniconda.html). (Note: On Mac I used [Homebrew](https://brew.sh): `brew cask install miniconda`.)
-3. Update conda:
+1. Create an `output/`: directory meant for storage of artifacts from notebook executions and experiments (it's included in `.gitignore`).
+   ```bash
+   mkdir output/
+   ```
+1. Install `conda`. The fastest way for this is to install [Miniconda](https://conda.io/en/latest/miniconda.html) (a mini version of [Anaconda](https://docs.continuum.io/anaconda/)): see official instructions for [Windows](https://conda.io/projects/conda/en/latest/user-guide/install/windows.html#install-win-silent) (use the example command), [macOS](https://conda.io/projects/conda/en/latest/user-guide/install/macos.html#install-macos-silent) (use the example command under _Installing in silent mode_), or [Linux](https://conda.io/projects/conda/en/latest/user-guide/install/linux.html). If you're asked whether to add (Ana)conda to you PATH, choose yes (or tick the appropriate box in the graphical installer). (Note: On macOS I used [Homebrew](https://brew.sh): `brew cask install miniconda`.)
+1. Update conda:
   ```bash
   conda update —all -y
   ```
