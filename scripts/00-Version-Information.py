@@ -13,6 +13,10 @@
 #     name: full-stack-ml
 # ---
 
+# # Version Information
+#
+# Check that you're using the correct versions of the core libraries needed for this workshop:
+
 # %load_ext version_information
 
 # %version_information sklearn, tensorflow
