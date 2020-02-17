@@ -23,7 +23,7 @@ services:
       - ../../:/home/devel/full-stack-ml
       - ${DATA_PATH}:/data
     environment: 
-        - DATA_PATH=/data
+        - DATA_PATH=/data/
     env_file: 
         - ~/auth.env
     command: /opt/conda/envs/full-stack-ml/bin/jupyter lab --ip='0.0.0.0' --port=8888 --no-browser --allow-root
