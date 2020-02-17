@@ -85,18 +85,31 @@ Remarks:
 
 ## Set environment variables
 
-1. Add path to directory where you store raw data files, in `~/.env`. Add Kaggle and Gradient authentication variables in `~/auth.env`. As a starting point, you can just copy the [`sample-auth.env`](setup/sample-auth.env) and [`sample.env`](setup/sample.env) files found in `setup/`, which contain example key/value pairs. You'll need to change the values!
-   1. For Kaggle:
-      * Your username can be found in the top right corner of the Kaggle web interface, once you're logged in. Let's call it `USERNAME` (please replace in the URL below)
-      * Go to the _API_ section on https://www.kaggle.com/`USERNAME`/account and click on _Create New API Token_
-   2. For Gradient:
-      * You can create an API key from https://www.paperspace.com/console/account/api: enter a Name (this can be whatever you want, e.g. "workshop"), a Description (optional), and click on "Create API token".
-      * Your project ID can be found at https://www.paperspace.com/console/projects.
-2. Add the following lines at the end of your shell config file (e.g. `~/.bash_config` or `~/.bashrc` for bash):
-   ```bash
-   source .env
-   source auth.env
-   ```
+Add environment files:
+
+* `.env` (at the root of this repo), which will store the `DATA_PATH` variable: this should be the path to the directory where you store raw data files. This variable will be used by our data loading utils ([mlxtend.utils.data](https://github.com/louisdorard/mlxtend/tree/master/mlxtend/utils/data.py)).
+* `~/auth.env` (in your **home folder** this time), which will contain Kaggle and Gradient authentication variables.
+
+As a starting point, you can copy the sample files found in `setup/`, which contain example key/value pairs. You'll need to change the values!
+```bash
+cp setup/sample.env .env
+cp setup/sample-auth.env ~/auth.env
+```
+
+* For Kaggle:
+   * Your username can be found in the top right corner of the Kaggle web interface, once you're logged in. Let's call it `USERNAME` (please replace in the URL below)
+   * Go to the _API_ section on https://www.kaggle.com/`USERNAME`/account and click on _Create New API Token_
+* For Gradient:
+   * You can create an API key from https://www.paperspace.com/console/account/api: enter a Name (this can be whatever you want, e.g. "workshop"), a Description (optional), and click on "Create API token".
+   * Your project ID can be found at https://www.paperspace.com/console/projects.
+
+Finally, add the following line at the end of your shell config file (e.g. `~/profile` or `~/.bash_profile` or `~/.bashrc` for bash):
+```bash
+source auth.env
+```
+This will allow you to use the `kaggle` CLI, for downloading datasets or uploading submissions.
+
+Note: the `.env` file is kept specific to the current project; this allows to specify different data paths for different projects, in different repos. The same `~/auth.env` file can be useful for several different projects.
 
 ## Download data
 

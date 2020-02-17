@@ -14,20 +14,27 @@ Some general knowledge about `docker` infrastructure might be useful (that's an 
 ### Using Docker for tests before running jobs on cloud platform
 
 * Download the Docker image with `docker pull louisdorard/full-stack-ml`.
-* Adapt [`docker-compose.yml`](docker-compose.yml):
-  * Make sure that the `volumes` property has an item which is `X:/data` (mapping `X` on the host to `/data` in the container, where `X` is the path to your raw data files)
-  * Adapt location of `auth.env` in the `env_file` property, if needed
-* Run Python notebooks as scripts in a Docker container:
+* Check the docker-compose configuration with the following command, executed from the current directory (`setup/docker/`):
+    ```bash
+    docker-compose config
+    ```
+  * At first, `${DATA_PATH}` won't be resolved. Create a link at `setup/docker/.env` to the `.env` file at this repo's root. Thus, in the docker-compose configuration, `${DATA_PATH}` will get replaced with the value contained in that file.
+    ```bash
+    ln ../../.env .env
+    ```
+  * In [`docker-compose.yml`](docker-compose.yml), you might need to adapt the location of `auth.env` in the `env_file` property, in case this file isn't in your home directory (`~`).
+  * Some remarks on `DATA_PATH`: In this repo we use a data loader found in [mlxtend.utils.data](https://github.com/louisdorard/mlxtend/tree/master/mlxtend/utils/data.py). It starts looking for data files in the `DATA_PATH` environment variable. This is `/data` in the docker container, which is mapped to `${DATA_PATH}` on the host... i.e. the location where the data files are!
+* Run Python notebooks as scripts in a Docker container, from this repo's root:
 
    ```bash
    export NOTEBOOK_NAME="00-Version-Information"
    export CMD="papermill $NOTEBOOK_NAME.ipynb output/$NOTEBOOK_NAME.ipynb"
-   bash -c "cd docker; docker-compose run full-stack-ml $CMD"
+   bash -c "cd setup/docker/; docker-compose run full-stack-ml $CMD"
    ```
 
 ### Serving Jupyter notebooks
 
-From the `docker/` subdirectory, run the following command:
+From the `setup/docker/` subdirectory, run the following command:
 
 ```bash
 docker-compose up
