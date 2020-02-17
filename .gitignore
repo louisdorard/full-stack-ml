@@ -2,3 +2,4 @@ auth.env
 output/*
 setup/docker/.env
 .env
+.vscode/settings.json
