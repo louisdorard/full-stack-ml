@@ -28,12 +28,12 @@ bash -c "$CMD_LOCAL"
 
 # ## Run experiment on Cloud
 #
-# Using Gradient experiments with the following options:
+# Using Gradient Jobs with the following options:
 #
-# * `--name` gives the name of the experiment
+# * `--name` gives the name of the job/experiment
 # * `--machineType`: see Gradient's [instance types](https://docs.paperspace.com/gradient/instances/instance-types)
-# * `--experimentEnv` allows to specify [environment variables](https://docs.paperspace.com/gradient/experiments/using-experiments/environment-variables)
-# * `--workspace`: setting it to the current directory (`./`) will upload the contents of this directory to the instance used for this experiment, at `/paperspace/`; an alternative is to use [`--workspaceRef`](https://docs.paperspace.com/gradient/experiments/using-experiments/git-commit-tracking#example)
+# * `--jobEnv` allows to specify [environment variables](https://docs.paperspace.com/gradient/experiments/using-experiments/environment-variables); here we define `DATA_PATH`, which will be used by our data loading utils ([mlxtend.utils.data](https://github.com/louisdorard/mlxtend/tree/master/mlxtend/utils/data.py)) to find data files
+# * `--workspace`: setting it to the current directory (`./`) will upload the contents of this directory to the instance used for this job/experiment, at `/paperspace/`; an alternative is to use [`--workspaceRef`](https://docs.paperspace.com/gradient/experiments/using-experiments/git-commit-tracking#example)
 # * `--command`: this is executed from `/paperspace/`
 
 gradient jobs create \

@@ -38,8 +38,10 @@ All commands given below should be executed from the root of this repo and are m
 
 You'll need accounts on the following platforms:
 
-* [Kaggle](https://www.kaggle.com): ML competitions
-* [Gradient](https://gradient.paperspace.com): cloud ML development and deployment (freemium - no credit card required for this workshop)
+* [Kaggle](https://www.kaggle.com) — ML competitions platform. We'll use it to download datasets and send predictions for evaluation.
+* [Gradient](https://gradient.paperspace.com) — cloud ML development and deployment platform. We explain its benefits in the [Cloud platform](#cloud-platform) section below, and we provide information to get started.
+
+Note that Gradient is a paid service which offers some free functionalities. No credit card is required for creating your account. If you get asked for one, feel free to ignore. We'll add you to our Gradient team so you'll be able to use all paid features during the workshop, without having to enter your credit card.
 
 ## Install development environment
 
@@ -77,6 +79,7 @@ Our ML development environment is based on Python and Jupyter. We use `conda` to
    ```bash
    bash setup/jupyter-install.bash
    ```
+9. Since Jupyter is a web-based environment, you might need to update your web browser to ensure proper functioning of the Jupyter (Lab) interface.
 
 Remarks:
 
@@ -151,7 +154,60 @@ This should automatically open your browser at http://localhost:8888/
 
 ## Cloud platform
 
-TODO: include Gradient.md (work in progress, see _gradient_ branch of this repo)
+We'll be using the Gradient cloud ML platform during this workshop (see link in _Accounts_ section).
+
+<!--
+As a first step, please send the email address associated to your Gradient account to your instructor via Slack (@louis or @christophe), so he can add you to our Gradient team. In case you missed it, the Slack invite link was sent to you in the workshop confirmation email. Slack is the preferred way to communicate with your instructor during and prior to the workshop.
+-->
+
+There are 2 main ways to use Gradient: for [Running Jobs](#running-jobs-on-gradient) (paid feature) and for [Running Notebooks](#running-notebooks-on-gradient). Once we have added you to our Gradient team, you'll be able to run Jobs without having to pay. In the meantime, you can run Notebooks for free with a "Free-CPU" cloud instance.
+
+### Why cloud ML platforms / Gradient?
+
+* It’s common practice to use powerful machines in the cloud for Machine and Deep Learning experiments, equipped with GPUs or high-performing CPUs with many cores. They make it faster to run jobs, and they can continue running while your laptop is closed.
+* Another advantage of the cloud is that you can have access to a development environment without having to install anything. You can have access to this workshop's development environment via Notebooks, which will run a docker container based on this repo's docker image.
+* ML platforms (as opposed to regular cloud services) like Gradient make it faster to set up cloud machines and more convenient to persist work done on these machines.
+* You won’t have to use your own wifi for downloading heavy datasets (several GB for the DL workshop): downloads will happen via your cloud provider's internet connection.
+
+### Running Jobs on Gradient
+
+When we add you to our team project, you'll have access to paid features such as running Jobs. But if you don't want to wait, you can add a credit card to your Gradient Private Workspace. A "workspace" on ML cloud platforms is a place where your you can create projects, in which all your experiment files will be stored (code, assets, outputs, results).
+
+1. Install the Gradient CLI (Command Line Interface)
+   ```bash
+   pip install -U gradient
+   ```
+2. Add your API key (assuming that you've already added `GRADIENT_API_KEY` to `auth.env` and sourced it):
+   ```bash
+   gradient apiKey $GRADIENT_API_KEY
+   ```
+   The key gets stored in `~/.paperspace/config.json`.
+3. Create and run your Jobs via the [`Experiments.ipynb`](Experiments.ipynb) Bash notebook.
+
+### Running Notebooks on Gradient
+
+Notebooks on Gradient provide an interesting way to get started faster with ML development, or when you don't want to have to install anything on your machine.
+
+* When we add you to our team workspace, you'll have access to our data storage, where the necessary data files have already been copied. But if you want to start using some of the notebooks here in the meantime, you'll need to use your Private Workspace and to [download that data](#download-data).
+* You'll need to start by creating a Notebook and setting environment variables:
+  * Click on _Create Notebook_ at https://www.paperspace.com/console/notebooks
+    * In "01. Choose Container":
+      * "Enter Container Name" -> _louisdorard/full-stack-ml_ 
+      * "Container user" -> _root_
+    * In "02. Choose Machine", pick _Free-CPU_
+    * Click on _Create Notebook_ to confirm everything
+  * Once the notebook is running, get the _Notebook ID_ from the list
+  * Go to https://NOTEBOOK_ID.gradient.paperspace.com/lab
+  * Click on "New terminal"
+  * Adapt the following commands by adding your Kaggle username and key, and execute:
+    ```bash
+    git clone https://github.com/louisdorard/full-stack-ml.git
+
+    sudo echo "export KAGGLE_USERNAME=" >> /root/.bashrc
+    sudo echo "export KAGGLE_KEY=" >> /root/.bashrc
+
+    sudo bash full-stack-ml/scripts/Download-Data.sh
+    ```
 
 ## Install IDE (optional)
 
