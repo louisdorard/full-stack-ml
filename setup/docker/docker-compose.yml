@@ -2,7 +2,7 @@ version: "3"
 services:
   full-stack-ml:
     build:
-      context: ../
+      context: ../ # i.e. the setup/ directory
       dockerfile: ./docker/Dockerfile
       args:
         - username=devel
@@ -10,7 +10,7 @@ services:
         - environment=full-stack-ml
         - workdir=/home/devel/full-stack-ml
     container_name: full-stack-ml
-    image: full-stack-ml
+    image: louisdorard/full-stack-ml
     restart: unless-stopped
     logging:
       driver: json-file
@@ -20,10 +20,10 @@ services:
       - "8889:8888"
       - "6006:6006"
     volumes:
-      - ../:/home/devel/full-stack-ml
-      - ~/input/:/data
-    command: /opt/conda/envs/full-stack-ml/bin/jupyter notebook --ip='0.0.0.0' --port=8888 --no-browser --allow-root
-    environment:
-      - DATA_PATH=/data
+      - ../../:/home/devel/full-stack-ml
+      - ${DATA_PATH}:/data
+    environment: 
+        - DATA_PATH=/data
     env_file: 
-      - ../auth.env
+        - ~/auth.env
+    command: /opt/conda/envs/full-stack-ml/bin/jupyter lab --ip='0.0.0.0' --port=8888 --no-browser --allow-root

@@ -1,7 +1,11 @@
+# TODO: credit Aurélien Géron's Dockerfile from which this one is inspired
+
 FROM continuumio/miniconda3:latest
 
 
+####
 # Update all system packages and conda
+####
 
 RUN apt-get update && apt-get upgrade -y \
     && apt-get install -y \
@@ -13,26 +17,42 @@ RUN apt-get update && apt-get upgrade -y \
 RUN conda update -y -n base conda
 
 
-# Set up /data (to be used as data path)
+####
+# Set up /data (to be used as DATA_PATH -- see accompanying docker-compose.yml)
+####
 
 RUN mkdir /data
 
 
+####
 # Install conda environment
+####
 
 COPY environment.yml /tmp/
-RUN conda env create -f /tmp/environment.yml
+RUN conda env create -f /tmp/environment.yml \
+    && rm /tmp/environment.yml
 RUN conda clean -y -t
+# IDEA: is this also cleaning the new environment? combine this line with previous one?
+# IDEA: try -a (all) instead of -t (tarballs only)?
+
+ENV PATH /opt/conda/envs/full-stack-ml/bin:$PATH
+RUN conda init bash
+RUN chsh -s /bin/bash
+
+# Finalize Jupyter installation and configuration
+COPY jupyter-install.bash /tmp/
+RUN bash /tmp/jupyter-install.bash && rm /tmp/jupyter-install.bash
 
 
-# Add user
+####
+# Configure user
+####
 
 ARG username
 ARG userid
 
 ARG home=/home/${username}
 ARG workdir=${home}/full-stack-ml
-ARG environment=full-stack-ml
 
 RUN adduser ${username} --uid ${userid} --gecos '' --disabled-password \
     && echo "${username} ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/${username} \
@@ -44,7 +64,15 @@ RUN chown ${username}:${username} ${workdir}
 USER ${username}
 WORKDIR ${workdir}
 
-ENV PATH /opt/conda/envs/${environment}/bin:$PATH
+# conda setup for user
+ENV PATH /opt/conda/envs/full-stack-ml/bin:$PATH
+RUN conda init bash
+
+COPY docker/bashrc.bash /tmp/
+RUN cat /tmp/bashrc.bash >> ${home}/.bashrc \
+    && echo "export PATH=\"${workdir}/docker/bin:$PATH\"" >> ${home}/.bashrc \
+    && sudo rm /tmp/bashrc.bash
+
 
 # The config below enables diffing notebooks with nbdiff (and nbdiff support
 # in git diff command) after connecting to the container by "make exec" (or
@@ -60,12 +88,6 @@ RUN git-nbdiffdriver config --enable --global
 #       metadata or details in nbdiff within git diff
 #RUN git config --global diff.jupyternotebook.command 'git-nbdiffdriver diff --ignore-metadata'
 RUN git config --global diff.jupyternotebook.command 'git-nbdiffdriver diff --ignore-details'
-
-
-COPY docker/bashrc.bash /tmp/
-RUN cat /tmp/bashrc.bash >> ${home}/.bashrc \
-    && echo "export PATH=\"${workdir}/docker/bin:$PATH\"" >> ${home}/.bashrc \
-    && sudo rm /tmp/bashrc.bash
 
 
 # INFO: Uncomment lines below to enable automatic save of python-only and html-only
@@ -92,30 +114,7 @@ RUN cat /tmp/bashrc.bash >> ${home}/.bashrc \
 #    >> ${home}/.jupyter/jupyter_notebook_config.py
 
 
-# Install and enable Jupyter (Lab) extensions
-
+# Change default shell
+# RUN chsh -s /bin/bash
 USER root
-
-RUN jupyter contrib nbextension install
-RUN jupyter nbextension enable livemdpreview/livemdpreview
-RUN jupyter nbextension enable hinterland/hinterland
-RUN jupyter nbextension enable snippets/main
-RUN jupyter nbextension enable snippets_menu/main
-RUN jupyter nbextension enable toc2/main
-RUN jupyter nbextension enable --py --sys-prefix qgrid
-
-# RUN jupyter labextension install @jupyterlab/git # TODO: this gives an error... fix! or maybe this isn't necessary
-RUN jupyter labextension install @lckr/jupyterlab_variableinspector
-# RUN jupyter labextension install nbdime-jupyterlab
-# RUN jupyter labextension install jupyterlab-jupytext
-RUN jupyter lab build
-
-
-# Set up shell
-
-RUN conda init bash
-
-
-# Make the kernel of the environment accessible via its own name (i.e. "full-stack-ml" instead of "Python [conda env:full-stack-ml]")
-
-RUN /bin/bash -c "source /root/.bashrc; conda activate ${environment}; python -m ipykernel install --name ${environment}"
+RUN usermod ${username} -s /bin/bash
