@@ -116,11 +116,12 @@ Note: the `.env` file is kept specific to the current project; this allows to sp
 
 ## Download data
 
-We'll use 3 datasets from Kaggle competitions:
+We'll use 4 datasets (the first 3 are from Kaggle competitions):
 
-* [Avazu](http://kaggle.com/c/avazu-ctr-prediction/) (~1 GB compressed - 7 GB uncompressed)
-* [House Prices](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/) (~200 KB)
-* [Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit/) (~7 MB)
+* [Avazu](http://kaggle.com/c/avazu-ctr-prediction/) (~1 GB compressed - 7 GB uncompressed) - classification - categorical features with many possible values
+* [House Prices](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/) (~200 KB) - regression - numerical and categorical features
+* [Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit/) (~7 MB) - classification - numerical features
+* [MNIST](http://yann.lecun.com/exdb/mnist/) (~55 MB) - classification - numerical features, no missing values (pixels)
 
 They can be downloaded to your raw data directory with the following command:
 
@@ -226,7 +227,7 @@ Installation of the development environment is done from the shell. The most pop
 
 * macOS: I recommand [iTerm](http://iterm2.com).
 * Windows:
-   * I recommend [Cmder](https://cmder.net) (which uses Bash by default). Download the "Full" version of cmder, which includes Git.
+   * I recommend [Cmder](https://cmder.net) (which uses Bash by default). Download the "Full" version of Cmder, which includes Git.
    * Other popular options to use the command line for Windows users are [Cygwin](http://cygwin.com), or to use the [Ubuntu](https://ubuntu.com/) linux distribution. There are 3 possible ways to do that:
       * [Ubuntu app](https://www.microsoft.com/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab) for Windows
       * [Dual-boot installation](https://help.ubuntu.com/community/WindowsDualBoot) alongside Windows
