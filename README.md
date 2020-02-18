@@ -167,11 +167,11 @@ There are 2 main ways to use Gradient: for [Running Jobs](#running-jobs-on-gradi
 * It’s common practice to use powerful machines in the cloud for Machine and Deep Learning experiments, equipped with GPUs or high-performing CPUs with many cores. They make it faster to run jobs, and they can continue running while your laptop is closed.
 * Another advantage of the cloud is that you can have access to a development environment without having to install anything. You can have access to this workshop's development environment via Notebooks, which will run a docker container based on this repo's docker image.
 * ML platforms (as opposed to regular cloud services) like Gradient make it faster to set up cloud machines and more convenient to persist work done on these machines.
-* You won’t have to use your own wifi for downloading heavy datasets (several GB for the DL workshop): downloads will happen via your cloud provider's internet connection.
+* You won’t have to use your own wifi for downloading heavy datasets (some of which weigh several GBs): downloads will happen via the platform's internet connection.
 
 ### Running Jobs on Gradient
 
-When we add you to our team project, you'll have access to paid features such as running Jobs. But if you don't want to wait, you can add a credit card to your Gradient Private Workspace. A "workspace" on ML cloud platforms is a place where your you can create projects, in which all your experiment files will be stored (code, assets, outputs, results).
+When we add you to our team project, you'll have access to paid features such as running Jobs. But if you don't want to wait, you can add a credit card to your Gradient Private Workspace. A "workspace" on ML cloud platforms is a place where you can create projects, in which all your experiment files will be stored (code, assets, outputs, results).
 
 1. Install the Gradient CLI (Command Line Interface)
    ```bash
@@ -226,7 +226,7 @@ Installation of the development environment is done from the shell. The most pop
 
 * macOS: I recommand [iTerm](http://iterm2.com).
 * Windows:
-   * I recommend [Cmder](https://cmder.net) (which uses Bash by default). Download the "Full" version of cmder, which includes Git. You'll need to right-click on `Cmder.exe` and choose _Run as administrator_ (otherwise you won't be able to create conda environments).
+   * I recommend [Cmder](https://cmder.net) (which uses Bash by default). Download the "Full" version of cmder, which includes Git.
    * Other popular options to use the command line for Windows users are [Cygwin](http://cygwin.com), or to use the [Ubuntu](https://ubuntu.com/) linux distribution. There are 3 possible ways to do that:
       * [Ubuntu app](https://www.microsoft.com/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab) for Windows
       * [Dual-boot installation](https://help.ubuntu.com/community/WindowsDualBoot) alongside Windows
