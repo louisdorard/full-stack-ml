@@ -232,7 +232,7 @@ Installation of the development environment is done from the shell. The most pop
       * [Dual-boot installation](https://help.ubuntu.com/community/WindowsDualBoot) alongside Windows
       * [Bootable USB stick](https://ubuntu.com/tutorials/tutorial-create-a-usb-stick-on-windows#1-overview).
 
-Once your shell and your terminal are set up, you'll be ready to execute all the commands given here!
+Once your shell and your terminal are set up, you'll be ready to execute all the commands given here! Note for Cmder users on Windows: after typing "~" in a command, press the Tab key, and it will replace "~" with the path to your home directory.
 
 ## About the author
 
