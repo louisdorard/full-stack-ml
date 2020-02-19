@@ -168,7 +168,7 @@ There are 2 main ways to use Gradient: for [Running Jobs](#running-jobs-on-gradi
 * It’s common practice to use powerful machines in the cloud for Machine and Deep Learning experiments, equipped with GPUs or high-performing CPUs with many cores. They make it faster to run jobs, and they can continue running while your laptop is closed.
 * Another advantage of the cloud is that you can have access to a development environment without having to install anything. You can have access to this workshop's development environment via Notebooks, which will run a docker container based on this repo's docker image.
 * ML platforms (as opposed to regular cloud services) like Gradient make it faster to set up cloud machines and more convenient to persist work done on these machines.
-* You won’t have to use your own wifi for downloading heavy datasets (some of which weigh several GBs): downloads will happen via the platform's internet connection.
+* You won’t have to use your own wifi for downloading heavy datasets (some of which weigh several GBs): downloads will happen via the platform's internet connection (FYI Gradient's download speed can reach ~ 80 MB/s).
 
 ### Running Jobs on Gradient
 
