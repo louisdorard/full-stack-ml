@@ -48,8 +48,8 @@ RUN bash /tmp/jupyter-install.bash && rm /tmp/jupyter-install.bash
 # Configure user
 ####
 
-ARG username
-ARG userid
+ARG username=devel
+ARG userid=1000
 
 ARG home=/home/${username}
 ARG workdir=${home}/full-stack-ml

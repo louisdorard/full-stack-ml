@@ -38,8 +38,10 @@ All commands given below should be executed from the root of this repo and are m
 
 You'll need accounts on the following platforms:
 
-* [Kaggle](https://www.kaggle.com): ML competitions
-* [Gradient](https://gradient.paperspace.com): cloud ML development and deployment (freemium - no credit card required for this workshop)
+* [Kaggle](https://www.kaggle.com) — ML competitions platform. We'll use it to download datasets and send predictions for evaluation.
+* [Gradient](https://gradient.paperspace.com) — cloud ML development and deployment platform. We explain its benefits in the [Cloud platform](#cloud-platform) section below, and we provide information to get started.
+
+Note that Gradient is a paid service which offers some free functionalities. No credit card is required for creating your account. If you get asked for one, feel free to ignore. We'll add you to our Gradient team so you'll be able to use all paid features during the workshop, without having to enter your credit card.
 
 ## Install development environment
 
@@ -77,6 +79,7 @@ Our ML development environment is based on Python and Jupyter. We use `conda` to
    ```bash
    bash setup/jupyter-install.bash
    ```
+9. Since Jupyter is a web-based environment, you might need to update your web browser to ensure proper functioning of the Jupyter (Lab) interface.
 
 Remarks:
 
@@ -113,11 +116,12 @@ Note: the `.env` file is kept specific to the current project; this allows to sp
 
 ## Download data
 
-We'll use 3 datasets from Kaggle competitions:
+We'll use 4 datasets (the first 3 are from Kaggle competitions):
 
-* [Avazu](http://kaggle.com/c/avazu-ctr-prediction/) (~1 GB compressed - 7 GB uncompressed)
-* [House Prices](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/) (~200 KB)
-* [Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit/) (~7 MB)
+* [Avazu](http://kaggle.com/c/avazu-ctr-prediction/) (~1 GB compressed - 7 GB uncompressed) - classification - categorical features with many possible values
+* [House Prices](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/) (~200 KB) - regression - numerical and categorical features
+* [Give Me Some Credit](https://www.kaggle.com/c/GiveMeSomeCredit/) (~7 MB) - classification - numerical features
+* [MNIST](http://yann.lecun.com/exdb/mnist/) (~55 MB) - classification - numerical features, no missing values (pixels)
 
 They can be downloaded to your raw data directory with the following command:
 
@@ -151,7 +155,60 @@ This should automatically open your browser at http://localhost:8888/
 
 ## Cloud platform
 
-TODO: include Gradient.md (work in progress, see _gradient_ branch of this repo)
+We'll be using the Gradient cloud ML platform during this workshop (see link in _Accounts_ section).
+
+<!--
+As a first step, please send the email address associated to your Gradient account to your instructor via Slack (@louis or @christophe), so he can add you to our Gradient team. In case you missed it, the Slack invite link was sent to you in the workshop confirmation email. Slack is the preferred way to communicate with your instructor during and prior to the workshop.
+-->
+
+There are 2 main ways to use Gradient: for [Running Jobs](#running-jobs-on-gradient) (paid feature) and for [Running Notebooks](#running-notebooks-on-gradient). Once we have added you to our Gradient team, you'll be able to run Jobs without having to pay. In the meantime, you can run Notebooks for free with a "Free-CPU" cloud instance.
+
+### Why cloud ML platforms / Gradient?
+
+* It’s common practice to use powerful machines in the cloud for Machine and Deep Learning experiments, equipped with GPUs or high-performing CPUs with many cores. They make it faster to run jobs, and they can continue running while your laptop is closed.
+* Another advantage of the cloud is that you can have access to a development environment without having to install anything. You can have access to this workshop's development environment via Notebooks, which will run a docker container based on this repo's docker image.
+* ML platforms (as opposed to regular cloud services) like Gradient make it faster to set up cloud machines and more convenient to persist work done on these machines.
+* You won’t have to use your own wifi for downloading heavy datasets (some of which weigh several GBs): downloads will happen via the platform's internet connection.
+
+### Running Jobs on Gradient
+
+When we add you to our team project, you'll have access to paid features such as running Jobs. But if you don't want to wait, you can add a credit card to your Gradient Private Workspace. A "workspace" on ML cloud platforms is a place where you can create projects, in which all your experiment files will be stored (code, assets, outputs, results).
+
+1. Install the Gradient CLI (Command Line Interface)
+   ```bash
+   pip install -U gradient
+   ```
+2. Add your API key (assuming that you've already added `GRADIENT_API_KEY` to `auth.env` and sourced it):
+   ```bash
+   gradient apiKey $GRADIENT_API_KEY
+   ```
+   The key gets stored in `~/.paperspace/config.json`.
+3. Create and run your Jobs via the [`Experiments.ipynb`](Experiments.ipynb) Bash notebook.
+
+### Running Notebooks on Gradient
+
+Notebooks on Gradient provide an interesting way to get started faster with ML development, or when you don't want to have to install anything on your machine.
+
+* When we add you to our team workspace, you'll have access to our data storage, where the necessary data files have already been copied. But if you want to start using some of the notebooks here in the meantime, you'll need to use your Private Workspace and to [download that data](#download-data).
+* You'll need to start by creating a Notebook and setting environment variables:
+  * Click on _Create Notebook_ at https://www.paperspace.com/console/notebooks
+    * In "01. Choose Container":
+      * "Enter Container Name" -> _louisdorard/full-stack-ml_ 
+      * "Container user" -> _root_
+    * In "02. Choose Machine", pick _Free-CPU_
+    * Click on _Create Notebook_ to confirm everything
+  * Once the notebook is running, get the _Notebook ID_ from the list
+  * Go to https://NOTEBOOK_ID.gradient.paperspace.com/lab
+  * Click on "New terminal"
+  * Adapt the following commands by adding your Kaggle username and key, and execute:
+    ```bash
+    git clone https://github.com/louisdorard/full-stack-ml.git
+
+    sudo echo "export KAGGLE_USERNAME=" >> /root/.bashrc
+    sudo echo "export KAGGLE_KEY=" >> /root/.bashrc
+
+    sudo bash full-stack-ml/scripts/Download-Data.sh
+    ```
 
 ## Install IDE (optional)
 
@@ -170,13 +227,13 @@ Installation of the development environment is done from the shell. The most pop
 
 * macOS: I recommand [iTerm](http://iterm2.com).
 * Windows:
-   * I recommend [Cmder](https://cmder.net) (which uses Bash by default). Download the "Full" version of cmder, which includes Git. You'll need to right-click on `Cmder.exe` and choose _Run as administrator_ (otherwise you won't be able to create conda environments).
+   * I recommend [Cmder](https://cmder.net) (which uses Bash by default). Download the "Full" version of Cmder, which includes Git.
    * Other popular options to use the command line for Windows users are [Cygwin](http://cygwin.com), or to use the [Ubuntu](https://ubuntu.com/) linux distribution. There are 3 possible ways to do that:
       * [Ubuntu app](https://www.microsoft.com/p/ubuntu/9nblggh4msv6?activetab=pivot:overviewtab) for Windows
       * [Dual-boot installation](https://help.ubuntu.com/community/WindowsDualBoot) alongside Windows
       * [Bootable USB stick](https://ubuntu.com/tutorials/tutorial-create-a-usb-stick-on-windows#1-overview).
 
-Once your shell and your terminal are set up, you'll be ready to execute all the commands given here!
+Once your shell and your terminal are set up, you'll be ready to execute all the commands given here! Note for Cmder users on Windows: after typing "~" in a command, press the Tab key, and it will replace "~" with the path to your home directory.
 
 ## About the author
 

@@ -4,11 +4,6 @@ services:
     build:
       context: ../ # i.e. the setup/ directory
       dockerfile: ./docker/Dockerfile
-      args:
-        - username=devel
-        - userid=1000
-        - environment=full-stack-ml
-        - workdir=/home/devel/full-stack-ml
     container_name: full-stack-ml
     image: louisdorard/full-stack-ml
     restart: unless-stopped
