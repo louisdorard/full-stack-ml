@@ -36,13 +36,29 @@ bash -c "$CMD_LOCAL"
 # * `--workspace`: setting it to the current directory (`./`) will upload the contents of this directory to the instance used for this job/experiment, at `/paperspace/`; an alternative is to use [`--workspaceRef`](https://docs.paperspace.com/gradient/experiments/using-experiments/git-commit-tracking#example)
 # * `--command`: this is executed from `/paperspace/`
 
+export MACHINE_TYPE=C3 # C3 has 2 cores, C7 has 12 cores
+
+# ### Jobs method
+
 gradient jobs create \
    --name $NOTEBOOK_NAME \
-   --machineType C3 \
+   --machineType $MACHINE_TYPE \
    --container louisdorard/full-stack-ml \
    --command "bash -c '$CMD_CLOUD_LOCAL'" \
    --workspace ./ \
    --jobEnv "{\"DATA_PATH\":\"/storage/data/\"}" \
+   --projectId $GRADIENT_PROJECT_ID
+# TODO: grep jobID and save it to file, so we can read it when downloading artifacts below
+
+# ### Experiments method
+
+gradient experiments run singlenode \
+   --name $NOTEBOOK_NAME \
+   --machineType $MACHINE_TYPE \
+   --container louisdorard/full-stack-ml \
+   --command "bash -c '$CMD_CLOUD_LOCAL'" \
+   --workspace ./ \
+   --experimentEnv "{\"DATA_PATH\":\"/storage/data/\"}" \
    --projectId $GRADIENT_PROJECT_ID
 
 # Download output notebook from job's artifacts, and move to `output/`:
@@ -53,8 +69,8 @@ gradient jobs artifacts download \
 
 # Note: it's also possible to use `experiments run` instead of `jobs create`...
 #
-# * Using `experiments run` streams logs to the output of the command, and seems to handle environment variables more reliably.
-# * Using `jobs create` allows to download job artifacts.
+# * `experiments run` is blocking; it streams logs to the output of the command; it seems to handle environment variables more reliably; can we download experiment artifacts afterwards?
+# * `jobs create` is non-blocking; it allows to download job artifacts; does it take environment variables into account?
 
 # In case you didn't already have the data in this team storage associated to this project, download it by adding your Kaggle username and Key in the environment variables listed below, and executing:
 #
