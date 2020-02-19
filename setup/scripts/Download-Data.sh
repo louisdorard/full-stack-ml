@@ -18,8 +18,10 @@ pushd $DATA_PATH
 mkdir avazu && pushd avazu/
 kaggle competitions download -c avazu-ctr-prediction
 unzip avazu-ctr-prediction.zip && rm avazu-ctr-prediction.zip
+gunzip *.gz
 mv train train_full.csv
 mv test test.csv
+mv sampleSubmission sampleSubmission.csv
 popd
 
 mkdir house-prices
