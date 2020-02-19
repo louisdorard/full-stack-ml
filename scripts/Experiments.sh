@@ -17,7 +17,7 @@
 #
 # This Bash notebook can be used to run notebook-based experiments, locally or on cloud infrastructure: notebooks are run as scripts by papermill.
 
-export NOTEBOOK_NAME="00-Version-Information"
+export NOTEBOOK_NAME="01-Online-Learning-SGD"
 
 export CMD_LOCAL="papermill $NOTEBOOK_NAME.ipynb output/$NOTEBOOK_NAME.ipynb"
 export CMD_CLOUD_LOCAL="papermill $NOTEBOOK_NAME.ipynb /artifacts/$NOTEBOOK_NAME.ipynb"
@@ -28,16 +28,16 @@ bash -c "$CMD_LOCAL"
 
 # ## Run experiment on Cloud
 #
-# Using Gradient Jobs with the following options:
+# Using Gradient Jobs / Experiments with the following options:
 #
 # * `--name` gives the name of the job/experiment
 # * `--machineType`: see Gradient's [instance types](https://docs.paperspace.com/gradient/instances/instance-types)
-# * `--jobEnv` allows to specify [environment variables](https://docs.paperspace.com/gradient/experiments/using-experiments/environment-variables); here we define `DATA_PATH`, which will be used by our data loading utils ([mlxtend.utils.data](https://github.com/louisdorard/mlxtend/tree/master/mlxtend/utils/data.py)) to find data files
+# * `--experimentEnv` (or `--jobEnv` for jobs) allows to specify [environment variables](https://docs.paperspace.com/gradient/experiments/using-experiments/environment-variables); here we define `DATA_PATH`, which will be used by our data loading utils ([mlxtend.utils.data](https://github.com/louisdorard/mlxtend/tree/master/mlxtend/utils/data.py)) to find data files
 # * `--workspace`: setting it to the current directory (`./`) will upload the contents of this directory to the instance used for this job/experiment, at `/paperspace/`; an alternative is to use [`--workspaceRef`](https://docs.paperspace.com/gradient/experiments/using-experiments/git-commit-tracking#example)
 # * `--command`: this is executed from `/paperspace/`
 
 gradient jobs create \
-   --name version-information \
+   --name $NOTEBOOK_NAME \
    --machineType C3 \
    --container louisdorard/full-stack-ml \
    --command "bash -c '$CMD_CLOUD_LOCAL'" \
@@ -51,7 +51,23 @@ gradient jobs artifacts download \
 --jobId XXX \
 --destinationDir output/
 
-# Note: it's also possible to use `experiments run` instead of `jobs create`.
+# Note: it's also possible to use `experiments run` instead of `jobs create`...
+#
+# * Using `experiments run` streams logs to the output of the command, and seems to handle environment variables more reliably.
+# * Using `jobs create` allows to download job artifacts.
+
+# In case you didn't already have the data in this team storage associated to this project, download it by adding your Kaggle username and Key in the environment variables listed below, and executing:
+#
+# ```bash
+# gradient experiments run singlenode \
+#    --name download \
+#    --machineType C3 \
+#    --container louisdorard/full-stack-ml \
+#    --command "mkdir /storage/data/; bash setup/scripts/Download-Data.sh" \
+#    --workspace https://github.com/louisdorard/full-stack-ml.git \
+#    --experimentEnv "{\"DATA_PATH\":\"/storage/data/\", \"KAGGLE_USERNAME\":\"louisdorard\", \"KAGGLE_KEY\":\"173c540463db94622281ce949e1dff07\"}" \
+#    --projectId $GRADIENT_PROJECT_ID
+# ```
 
 # [Gradient documentation](https://docs.paperspace.com/gradient/)
 
