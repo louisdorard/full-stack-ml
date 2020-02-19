@@ -63,9 +63,11 @@ print("Chunk weighs " + str(chunk.memory_usage(index=True).sum()/(1024**2)) + " 
 
 chunk
 
-import qgrid
-qgrid_widget = qgrid.show_grid(chunk, show_toolbar=True)
-qgrid_widget
+# +
+# Commenting out this block - waiting for qgrid to be compatible with the latest version of pandas
+# import qgrid
+# qgrid_widget = qgrid.show_grid(chunk, show_toolbar=True)
+# qgrid_widget
 
 # + [markdown] slideshow={"slide_type": "slide"}
 # ## Prepare data
