@@ -5,7 +5,7 @@ services:
       context: ../ # i.e. the setup/ directory
       dockerfile: ./docker/Dockerfile
     container_name: full-stack-ml
-    image: louisdorard/full-stack-ml
+    image: louisdorard/full-stack-ml:14a531a165e3
     restart: unless-stopped
     logging:
       driver: json-file
