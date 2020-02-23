@@ -19,8 +19,8 @@ mkdir avazu && pushd avazu/
 kaggle competitions download -c avazu-ctr-prediction
 unzip avazu-ctr-prediction.zip && rm avazu-ctr-prediction.zip
 gunzip *.gz
-mv train train_full.csv
-mv test test.csv
+mv train train_full_raw.csv
+mv test test_raw.csv
 mv sampleSubmission sampleSubmission.csv
 popd
 
@@ -28,15 +28,16 @@ mkdir house-prices
 pushd house-prices/
 kaggle competitions download -c house-prices-advanced-regression-techniques
 unzip house-prices-advanced-regression-techniques.zip && rm house-prices-advanced-regression-techniques.zip
-mv cs-training.csv train_full.csv
-mv cs-test.csv test.csv
+mv cs-training.csv train_full_raw.csv
+mv cs-test.csv test_raw.csv
 popd
 
 mkdir give-me-some-credit
 pushd give-me-some-credit/
 kaggle competitions download -c GiveMeSomeCredit
 unzip GiveMeSomeCredit.zip && rm GiveMeSomeCredit.zip
-mv train.csv train_full.csv
+mv train.csv train_full_raw.csv
+mv test.csv test_raw.csv
 popd
 
 mkdir MNIST && pushd MNIST/
