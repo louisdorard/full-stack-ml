@@ -1,0 +1,27 @@
+EVALS: 4 # start with small value and see how long it takes, before increasing
+#FOLDS: 5 # try 5 and 10, see how it affects the standard deviation of results, and the time it takes
+#NTREES: 10
+
+ESTIMATOR: rf
+HP_DIST: # start with default value, to get baseline performance values
+  max_depth: [3, 6, 9] # None value can cause problems!
+  max_features: [0.25, 0.5, 0.75, 1.0] # "auto"
+  min_samples_split:
+    min: 2
+    max: 11
+  min_samples_leaf:
+    min: 2
+    max: 11
+  bootstrap: [True, False]
+#  criterion: ["gini", "entropy"]}
+
+SCORING: roc_auc
+
+SEED: 42
+
+ESTIMATOR: xgb
+# HP_DIST:
+#   max_depth: [3, 6, 9, None]
+#   learning_rate: [0.0001, 0.001, 0.01, 0.1, 0.2, 0.3, 0.5, 1]
+#   colsample_bytree: [0.25, 0.5, 0.75, 1.0]
+#   subsample: [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
