@@ -1,18 +1,15 @@
 version: "3"
 services:
   full-stack-ml:
-    build:
-      context: ../ # i.e. the setup/ directory
-      dockerfile: ./docker/Dockerfile
     container_name: full-stack-ml
-    image: louisdorard/full-stack-ml:14a531a165e3
+    image: louisdorard/full-stack-ml:2020-02-24-workshop
     restart: unless-stopped
     logging:
       driver: json-file
       options:
         max-size: 50m
     ports:
-      - "8889:8888"
+      - "9999:9999"
       - "6006:6006"
     volumes:
       - ../../:/home/devel/full-stack-ml
@@ -21,4 +18,4 @@ services:
         - DATA_PATH=/data/
     env_file: 
         - ~/auth.env
-    command: /opt/conda/envs/full-stack-ml/bin/jupyter lab --ip='0.0.0.0' --port=8888 --no-browser --allow-root
+    command: /opt/conda/envs/full-stack-ml/bin/jupyter lab --ip='0.0.0.0' --port=9999 --no-browser --allow-root
