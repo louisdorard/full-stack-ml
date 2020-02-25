@@ -35,7 +35,7 @@ HP_DIST = { # this is for rf
         "min": 2,
         "max": 11
     },
-    "max_features":{
+    "max_features": {
         "type": "float",
         "min": 0.1,
         "max": 1.0

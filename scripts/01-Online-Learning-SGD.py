@@ -30,8 +30,8 @@ FULL_RUN = False
 # Look at size of training set and number of lines. For this, use the following commands:
 #
 # ```bash
-# du -h train.csv
-# wc -l train.csv
+# du -h train_full_raw.csv
+# wc -l train_full_raw.csv
 # ```
 
 # + [markdown] slideshow={"slide_type": "slide"}
@@ -48,7 +48,7 @@ from pandas import read_csv
 TRAIN_FILE = filename2path("avazu")
 HEADER = ['id','click','hour','C1','banner_pos','site_id','site_domain','site_category','app_id','app_domain','app_category','device_id'\
         ,'device_ip','device_model','device_type','device_conn_type','C14','C15','C16','C17','C18','C19','C20','C21']
-reader = read_csv(TRAIN_FILE, chunksize=CHUNK_SIZE, names=HEADER, header=0)
+reader = read_csv(TRAIN_FILE, chunksize=CHUNK_SIZE, names=HEADER, header=0, index_col=0)
 
 reader
 
@@ -84,7 +84,7 @@ fh = FeatureHasher(n_features=2**20, input_type='string')
 
 def chunk2Xy(chunk):
     y = chunk['click'].values
-    X = chunk.drop(['id', 'click'], axis=1) # remove id and target columns
+    X = chunk.drop(['click'], axis=1) # remove id and target columns
     X = fh.transform(asarray(X.astype(str))) # transform X to array of strings, so we can apply feature hashing
     return X, y
 

@@ -27,6 +27,7 @@
 EVALS = 4 # the number of evaluations roughly determines how long search procedures will take; this value is just for tests, it should be increased for meaningful results!
 DATASET = "digits" # "digits" (rather small, good to start running experiments) or "credit" (bigger)
 FOLDS = 3 # smaller values will make the evaluation quicker; recommended values are between 3 and 10
+SCORING = "neg_log_loss" # negative log likelihood
 NTREES = 10 # reasonable values between 10 and 100; this has an impact on the time an evaluation takes
 ESTIMATOR = "rf" # "rf" or "xgb"
 HP_DIST = { # this is for rf; adapt for xgb
@@ -45,7 +46,6 @@ HP_DIST = { # this is for rf; adapt for xgb
         "values": [True, False]
     }
 }
-SCORING = "neg_log_loss" # negative log likelihood
 SEED = 42 # for reproducibility of results
 
 # + [markdown] slideshow={"slide_type": "slide"}
