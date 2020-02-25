@@ -17,7 +17,7 @@
 #
 # This Bash notebook can be used to run notebook-based experiments, locally or on cloud infrastructure: notebooks are run as scripts by papermill.
 
-export NOTEBOOK_NAME="01-Online-Learning-SGD"
+export NOTEBOOK_NAME="02-Randomized-Search"
 
 export CMD_LOCAL="papermill $NOTEBOOK_NAME.ipynb output/$NOTEBOOK_NAME.ipynb"
 export CMD_CLOUD_LOCAL="papermill $NOTEBOOK_NAME.ipynb /artifacts/$NOTEBOOK_NAME.ipynb"
@@ -40,15 +40,17 @@ export MACHINE_TYPE=C3 # C3 has 2 cores, C7 has 12 cores
 
 # ### Jobs method
 
-gradient jobs create \
-   --name $NOTEBOOK_NAME \
-   --machineType $MACHINE_TYPE \
-   --container louisdorard/full-stack-ml \
-   --command "bash -c '$CMD_CLOUD_LOCAL'" \
-   --workspace ./ \
-   --jobEnv "{\"DATA_PATH\":\"/storage/data/\"}" \
-   --projectId $GRADIENT_PROJECT_ID
+# +
+#gradient jobs create \
+#   --name $NOTEBOOK_NAME \
+#   --machineType $MACHINE_TYPE \
+#   --container louisdorard/full-stack-ml \
+#   --command "bash -c '$CMD_CLOUD_LOCAL'" \
+#   --workspace ./ \
+#   --jobEnv "{\"DATA_PATH\":\"/storage/data/\"}" \
+#   --projectId $GRADIENT_PROJECT_ID
 # TODO: grep jobID and save it to file, so we can read it when downloading artifacts below
+# -
 
 # ### Experiments method
 
@@ -61,7 +63,11 @@ gradient experiments run singlenode \
    --experimentEnv "{\"DATA_PATH\":\"/storage/data/\"}" \
    --projectId $GRADIENT_PROJECT_ID
 
-# Download output notebook from job's artifacts, and move to `output/`:
+# Show list of jobs in our project:
+
+gradient jobs list --projectId $GRADIENT_PROJECT_ID
+
+# Find ours in this list, based on the date/time. Get corresponding job ID and use below, so we can download the output notebook from the job's artifacts, and move it to `output/`:
 
 gradient jobs artifacts download \
 --jobId XXX \
