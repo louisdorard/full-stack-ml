@@ -66,7 +66,7 @@ Our ML development environment is based on Python and Jupyter. We use `conda` to
    conda install anaconda-client
    conda env create louisdorard/full-stack-ml
    ```
-   (Note that this downloads and uses the `environment.yml` file from [Anaconda Cloud](https://anaconda.org/louisdorard/full-stack-ml) — which might be different from the local file.)
+   (Note that this downloads and uses the `environment.yml` file from [Anaconda Cloud](https://anaconda.org/louisdorard/full-stack-ml), which might be different from the local file, if you have made any changes.)
 6. Initialize conda for your shell (replace `YOUR_SHELL_NAME` with the name of your shell, e.g. `bash`):
    ```bash
    conda init YOUR_SHELL_NAME

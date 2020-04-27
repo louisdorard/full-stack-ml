@@ -43,7 +43,9 @@ dependencies:
 - tensorflow=2.0.0 # dl
 - version_information
 - pip:
+  - azure-cognitiveservices-search-imagesearch
   - dabl
+  - fastai2>=0.0.11
 #  - h5py==2.8.0rc1 # dl
   - networkx==1.11 # see https://github.com/hyperopt/hyperopt/issues/325 TODO: this shouldn't be needed anymore...
   - python-dotenv
