@@ -15,15 +15,13 @@ dependencies:
 - joblib
 - jupyter_contrib_nbextensions # makes it easier to customize Jupyter extensions such as rise
 - jupyterlab
-- jupyterlab-git
 - jupytext
 - kaggle
-- lime # optional - prediction explanations
+- lime # prediction explanations
 - matplotlib # for plots
 #- mlflow
 - nb_conda_kernels # allows usage of any environment as Jupyter kernel
 - nbclean
-- nbdime
 - nltk # optional - for text pre-processing
 - pandas
 - pandas-profiling
@@ -46,6 +44,7 @@ dependencies:
   - azure-cognitiveservices-search-imagesearch
   - dabl
   - fastai2>=0.0.11
+  - jupyterlab-git
 #  - h5py==2.8.0rc1 # dl
   - networkx==1.11 # see https://github.com/hyperopt/hyperopt/issues/325 TODO: this shouldn't be needed anymore...
   - python-dotenv
