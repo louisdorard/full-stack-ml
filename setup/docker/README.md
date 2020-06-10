@@ -40,22 +40,42 @@ From the `setup/docker/` subdirectory, run the following command:
 docker-compose up
 ```
 
-This starts a docker container which runs a Jupyter server as its main command.
+This starts a docker container which runs a Jupyter server as its main command. When you're done, shut it down with:
 
+```bash
+docker-compose down
+```
 
 ## Building the docker image
+
+This is done by Docker Hub.
+
+The configuration can be edited at [https://hub.docker.com/repository/docker/louisdorard/full-stack-ml/builds/edit](https://hub.docker.com/repository/docker/louisdorard/full-stack-ml/builds/edit) (build rules, build environment variables, etc.) (this is only accessible to the owner of this repo).
+
+### Building locally
+
+Add the following to `docker-compose.yml`, under the `full-stack-ml` service:
+
+```
+    build:
+      context: ../ # i.e. the setup/ directory
+      dockerfile: ./docker/Dockerfile
+    container_name: full-stack-ml
+```
+
+Trigger the build with:
 
 ```bash
 docker-compose build
 ```
 
-If needed, get access to an interactive bash session with this command:
+If needed, get access to an interactive bash session with:
 
 ```bash
 docker-compose run full-stack-ml bash
 ```
 
-Pushing the image (this is only for me, the author :) :
+Pushing the image (this is only accessible to the owner of this repo :)) :
 
 ```bash
 docker tag full-stack-ml louisdorard/full-stack-ml
