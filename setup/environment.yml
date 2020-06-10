@@ -49,5 +49,5 @@ dependencies:
 #  - h5py==2.8.0rc1 # dl
   - networkx==1.11 # see https://github.com/hyperopt/hyperopt/issues/325 TODO: this shouldn't be needed anymore...
   - python-dotenv
-  - git+git://github.com/louisdorard/mlxtend.git
-  - git+git://github.com/louisdorard/img2vec-keras.git
+  - git+https://github.com/louisdorard/mlxtend
+  - git+https://github.com/louisdorard/img2vec-keras
