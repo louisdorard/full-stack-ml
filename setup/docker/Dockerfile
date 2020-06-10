@@ -4,7 +4,7 @@ FROM continuumio/miniconda3:latest
 
 
 ####
-# Update all system packages and conda
+# Update all system packages, install additional packages, and update conda
 ####
 
 RUN apt-get update && apt-get upgrade -y \
@@ -12,7 +12,8 @@ RUN apt-get update && apt-get upgrade -y \
         git \
         sudo \
         unzip zip \
-    && rm -rf /var/lib/apt/lists/*
+        curl \
+        jq
 
 RUN conda update -y -n base conda
 
@@ -26,6 +27,7 @@ RUN mkdir /data
 
 ####
 # Install conda environment
+# This uses environment.yml, which is in the build context (see README.md#Building-the-docker-image)
 ####
 
 COPY environment.yml /tmp/
