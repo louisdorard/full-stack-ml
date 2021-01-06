@@ -172,7 +172,7 @@ There are 2 main ways to use Gradient: for [Running Jobs](#running-jobs-on-gradi
 
 ### Running Jobs on Gradient
 
-When we add you to our team project, you'll have access to paid features such as running Jobs. But if you don't want to wait, you can add a credit card to your Gradient Private Workspace. A "workspace" on ML cloud platforms is a place where you can create projects, in which all your experiment files will be stored (code, assets, outputs, results).
+When we add you to our team project, you'll have access to paid features such as running Jobs. But if you don't want to wait until we add you to the team, you can add a credit card to your Gradient Private Workspace. A "workspace" on ML cloud platforms is a place where you can create projects, in which all your experiment files will be stored (code, assets, outputs, results).
 
 1. Install the Gradient CLI (Command Line Interface)
    ```bash
@@ -189,7 +189,7 @@ When we add you to our team project, you'll have access to paid features such as
 
 Notebooks on Gradient provide an interesting way to get started faster with ML development, or when you don't want to have to install anything on your machine.
 
-* When we add you to our team workspace, you'll have access to our data storage, where the necessary data files have already been copied. But if you want to start using some of the notebooks here in the meantime, you'll need to use your Private Workspace and to [download that data](#download-data).
+* When we add you to our team workspace, you'll have access to our data storage (mapped to `/storage/data/`), where the necessary data files have already been copied. But if you want to start using some of the notebooks here in the meantime, you'll need to use your Private Workspace and to [download that data](#download-data).
 * You'll need to start by creating a Notebook and setting environment variables:
   * Click on _Create Notebook_ at https://www.paperspace.com/console/notebooks
     * In "01. Choose Container":
